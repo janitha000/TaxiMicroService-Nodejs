@@ -1,4 +1,5 @@
 var sql = require('mssql');
+var logger = require('../Util/winston')
 
 var config = {
     user: 'janitha',
@@ -21,6 +22,7 @@ exports.GetDriverList = function(callback){
 }
 
 exports.GetSingleDriver = function(id, callback){
+    logger.info("Calling get driver method");
     new sql.ConnectionPool(config).connect().then(pool => {
         return pool.request().query('SELECT * FROM Drivers WHERE Id =' + id)
     }).then(result => {
@@ -53,3 +55,5 @@ exports.AddDriver = function(body, callback){
         sql.close();
     })
 }
+
+
