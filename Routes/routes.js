@@ -6,7 +6,7 @@ var authController = require('../Controllers/AuthController');
 
 var authMiddleware = require('../MIddleware/AuthMiddleware');
 
-router.get('/driver', authMiddleware.Validate, driverController.driver_list);
+router.get('/driver', driverController.driver_list);
 router.get('/driver/:driverId', driverController.single_driver);
 router.post('/driver', authMiddleware.Validate, driverController.add_driver);
 

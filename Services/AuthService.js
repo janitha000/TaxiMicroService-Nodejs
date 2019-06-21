@@ -1,3 +1,6 @@
+var emailQueue = require('../SQSQueue/QueueService') 
+var logger = require('../Util/winston');
+
 const AmazonCognitoIdentity = require('amazon-cognito-identity-js');
 const request = require('request');
 const jwkToPem = require('jwk-to-pem');
@@ -37,7 +40,7 @@ exports.Register = function (body, callback) {
 }
 
 exports.Login = function (body, callback) {
-    var userName = body.auth.name;
+    var userName = body.auth.username;
     var password = body.auth.password;
 
     var authenticationDetails = new AmazonCognitoIdentity.AuthenticationDetails({
@@ -54,7 +57,10 @@ exports.Login = function (body, callback) {
     cognitoUser.authenticateUser(authenticationDetails, {
         onSuccess: function (result) {
             var accesstoken = result.getAccessToken().getJwtToken();
-            callback(accesstoken);
+            emailQueue.SendMessagetoSQS(userName).then(function(result) {
+                logger.info(result);
+                callback(accesstoken);
+            })          
         },
         onFailure: (function (err) {
             callback(err);
