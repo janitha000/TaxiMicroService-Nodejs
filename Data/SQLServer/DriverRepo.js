@@ -8,6 +8,7 @@ var config = {
     database: 'taximicroservice'
 }
 
+
 exports.GetDriverList = function(callback){
     logger.info("Calling get drivers method");    
     new sql.ConnectionPool(config).connect().then(pool => {

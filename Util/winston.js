@@ -1,6 +1,10 @@
 var winston = require('winston')
+var cloudwatchTransport = require('winston-aws-cloudwatch')
+
 const { createLogger, format, transports } = require('winston');
 const { combine, timestamp, label, printf } = format;
+
+const NODE_ENV = process.env.NODE_ENV || 'development'
 
 const loggerOptions = {
     file: {
@@ -12,16 +16,25 @@ const loggerOptions = {
         colorize: false,
     },
     console: {
-        level: 'debug',
+        level: 'info',
         handleExceptions: true,
         json: false,
         colorize: true,
     },
 }
 
+const CloudWatchOptions = {
+    logGroupName: '',
+    logStreamName: '',
+    createLogStream: true,
+    formatLog: function (item) {
+        return item.level + ': ' + item.message + ' ' + JSON.stringify(item.meta)
+    }
+}
+
 const myFormat = printf(({ level, message, timestamp }) => {
     return `${timestamp} ${level}: ${message}`;
-  });
+});
 
 
 var logger = new winston.createLogger({
@@ -34,5 +47,8 @@ var logger = new winston.createLogger({
         new winston.transports.Console(loggerOptions.console)
     ]
 })
+
+//if (NODE_ENV == 'development') logger.add(cloudwatchTransport, CloudWatchOptions);
+
 
 module.exports = logger;

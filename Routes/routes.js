@@ -3,6 +3,7 @@ var router = express.Router();
 
 var driverController = require('../Controllers/DriverController');
 var authController = require('../Controllers/AuthController');
+var testController = require('../Controllers/TestController');
 
 var authMiddleware = require('../MIddleware/AuthMiddleware');
 
@@ -13,5 +14,9 @@ router.post('/driver', authMiddleware.Validate, driverController.add_driver);
 router.post('/auth/register', authController.register);
 router.post('/auth/login', authController.login);
 router.post('/auth/validate', authController.validate_token);
+
+router.get('/test/cache/:key', testController.GetCache);
+router.post('/test/cache/:key', testController.setCache);
+
 module.exports = router;
 
