@@ -13,7 +13,7 @@ class RedisCache {
     }
 
     Set (key, value, callback) {
-        this.redisClient.Set(key, value, function (err, result) {
+        this.redisClient.set(key, value, function (err, result) {
             if (err) {
                 logger.error(err);
                 callback(err);
@@ -22,6 +22,20 @@ class RedisCache {
             callback(null, result);
         })
     }
+
+    GetValue(key, callback){
+        logger.info("Getting cache for key " + key)
+        this.redisClient.get(key, function(err, result){
+            if(err){
+                logger.error(err)
+                callback(err);
+            }else{
+                logger.info("cache result " + result);
+                callback(null, result);
+            }
+        })
+    };
+
 
     Get (key, callback) {
         logger.info("Getting cache value for key " + key);
@@ -35,7 +49,7 @@ class RedisCache {
                     }
                     else {
                         logger.info("Get result " + cacheresult);
-                        callback(null, cacheresult);
+                        callback(null, cacheresult.value);
                     }
                 })
             }

@@ -2,7 +2,7 @@ var redis = require('../Data/Cache/redis')
 
 exports.GetCache = function(req, res){
     var key = req.params.key
-    redis.Get(key, function(err, result){
+    redis.GetValue(key, function(err, result){
         if(err)
             res.send(err)
         res.send(result);

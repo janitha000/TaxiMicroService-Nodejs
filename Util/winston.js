@@ -1,5 +1,5 @@
 var winston = require('winston')
-var cloudwatchTransport = require('winston-aws-cloudwatch')
+const CloudWatchTransport = require('winston-aws-cloudwatch')
 
 const { createLogger, format, transports } = require('winston');
 const { combine, timestamp, label, printf } = format;
@@ -14,6 +14,9 @@ const loggerOptions = {
         json: true,
         maxsize: 5242880, // 5MB
         colorize: false,
+        options: {
+            flags: 'w'
+        },
     },
     console: {
         level: 'info',
@@ -24,9 +27,16 @@ const loggerOptions = {
 }
 
 const CloudWatchOptions = {
-    logGroupName: '',
-    logStreamName: '',
+    logGroupName: 'TaxiNodeServer',
+    logStreamName: 'ServerStream',
     createLogStream: true,
+    createLogStream: true,
+    submissionInterval: 2000,
+    submissionRetryCount: 1,
+    batchSize: 20,
+    awsConfig: {
+        region: 'us-east-1'
+      },
     formatLog: function (item) {
         return item.level + ': ' + item.message + ' ' + JSON.stringify(item.meta)
     }
@@ -44,7 +54,9 @@ var logger = new winston.createLogger({
     ),
     transports: [
         new winston.transports.File(loggerOptions.file),
-        new winston.transports.Console(loggerOptions.console)
+        new winston.transports.Console(loggerOptions.console),
+        new CloudWatchTransport(CloudWatchOptions)
+
     ]
 })
 
