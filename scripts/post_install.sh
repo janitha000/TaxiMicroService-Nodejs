@@ -2,7 +2,7 @@
 set -e
 
 cd ~/TaxiMicroServiceNode
-/home/ec2-user/.nvm/versions/node/v10.15.1/lib/node_modules/npm/bin/npm install
+/home/ec2-user/.nvm/versions/node/v10.15.1/bin/npm install
 
 # setup NODE_ENV
 # if [ ! -z "$DEPLOYMENT_GROUP_NAME" ]; then
