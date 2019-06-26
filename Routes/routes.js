@@ -4,6 +4,7 @@ var router = express.Router();
 var driverController = require('../Controllers/DriverController');
 var authController = require('../Controllers/AuthController');
 var testController = require('../Controllers/TestController');
+var productController = require('../Controllers/ProductController');
 
 var authMiddleware = require('../MIddleware/AuthMiddleware');
 
@@ -17,6 +18,9 @@ router.post('/auth/validate', authController.validate_token);
 
 router.get('/test/cache/:key', testController.GetCache);
 router.post('/test/cache/:key', testController.setCache);
+
+router.get('/product/:id', productController.get_single_product);
+router.post('/product', productController.add_product);
 
 module.exports = router;
 

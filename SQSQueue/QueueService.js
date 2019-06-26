@@ -27,7 +27,7 @@ exports.SendMessagetoSQS = function(username)  {
                 logger.error(err)
                 reject(err)
             }else{
-                logger.info(data);
+                logger.info("email sent data " + data);
                 resolve(data)
             }
         })

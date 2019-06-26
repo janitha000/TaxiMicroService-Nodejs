@@ -24,6 +24,12 @@ const loggerOptions = {
         json: false,
         colorize: true,
     },
+    exception : {
+        filename: 'logs/exception.log',
+        options: {
+            flags: 'w'
+        },
+    }
 }
 
 const CloudWatchOptions = {
@@ -59,6 +65,10 @@ var logger = new winston.createLogger({
 
     ]
 })
+
+logger.exceptions.handle(
+    new winston.transports.File(loggerOptions.exception)
+)
 
 //if (NODE_ENV == 'development') logger.add(cloudwatchTransport, CloudWatchOptions);
 

@@ -13,12 +13,13 @@ class RedisCache {
     }
 
     Set (key, value, callback) {
+        logger.info("Called redis set with key " + key + " value " + value);
         this.redisClient.set(key, value, function (err, result) {
             if (err) {
-                logger.error(err);
+                logger.error("Error from redis " + err);
                 callback(err);
             }
-            logger.info(result);
+            logger.info("cache set result " + result);
             callback(null, result);
         })
     }
@@ -30,8 +31,8 @@ class RedisCache {
                 logger.error(err)
                 callback(err);
             }else{
-                logger.info("cache result " + result);
-                callback(null, result);
+                logger.info("cache result " + result.toString());
+                callback(null, result.toString());
             }
         })
     };
