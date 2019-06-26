@@ -2,6 +2,8 @@ const Product = require('../Data/Mongodb/Entities/product.model');
 const Category = require('../Data/Mongodb/Entities/category.model')
 const logger = require('../Util/winston')
 
+const productHelper = require('../Helpers/ProductHelper');
+
 exports.get_single_product = function (req, res) {
     var id = req.params.id;
     logger.info("Find product for id " + id);
@@ -17,17 +19,14 @@ exports.get_single_product = function (req, res) {
 
 
 exports.get_products = function (req, res) {
-    var filter = req.query.filter;
-    logger.info("filter parameter " + filter);
+    productHelper.get_products_with_filter(req, function (err, result) {
+        if (err) {
+            logger.error("Error when getting products " + err);
+            res.send(err);
+        }
+        res.send(result);
+    })
 
-    Product.find({ price: { $gt: filter } }).limit(10).sort({ created: -1 })
-        .exec(function (err, result) {
-            if(err){
-                logger.error("Error when getting products " + err);
-                res.send(err);
-            }
-            res.send(result);
-        })
 }
 
 exports.add_product = function (req, res) {
