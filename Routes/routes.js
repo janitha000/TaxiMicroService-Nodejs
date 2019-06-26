@@ -20,6 +20,7 @@ router.get('/test/cache/:key', testController.GetCache);
 router.post('/test/cache/:key', testController.setCache);
 
 router.get('/product/:id', productController.get_single_product);
+router.get('/product', productController.get_products);
 router.post('/product', productController.add_product);
 
 module.exports = router;

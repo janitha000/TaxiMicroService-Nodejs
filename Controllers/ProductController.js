@@ -15,6 +15,21 @@ exports.get_single_product = function (req, res) {
     })
 }
 
+
+exports.get_products = function (req, res) {
+    var filter = req.query.filter;
+    logger.info("filter parameter " + filter);
+
+    Product.find({ price: { $gt: filter } }).limit(10).sort({ created: -1 })
+        .exec(function (err, result) {
+            if(err){
+                logger.error("Error when getting products " + err);
+                res.send(err);
+            }
+            res.send(result);
+        })
+}
+
 exports.add_product = function (req, res) {
     let product = new Product({
         id: req.body.id,
@@ -25,7 +40,7 @@ exports.add_product = function (req, res) {
     let categoryName = req.body.categoryName;
 
     Category.findOne({ name: categoryName }).exec(function (err, category) {
-        if (err){
+        if (err) {
             logger.error("Error when getting category");
             res.send("ERROR when getting category " + err);
         }
