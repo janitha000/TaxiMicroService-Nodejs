@@ -19,9 +19,12 @@ router.post('/auth/validate', authController.validate_token);
 router.get('/test/cache/:key', testController.GetCache);
 router.post('/test/cache/:key', testController.setCache);
 
-router.get('/product/:id', productController.get_single_product);
+router.get('/product/:name', productController.get_single_product);
 router.get('/product', productController.get_products);
+router.get('/product/category/categories/:category', productController.get_products_for_categoies_onlyname);
+router.get('/product/category/categories', productController.get_categories);
 router.post('/product', productController.add_product);
+router.put('/product/:id', productController.update_product);
 
 module.exports = router;
 

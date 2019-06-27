@@ -9,5 +9,9 @@ let ProductSchema = new Schema({
     category : { type: mongoose.Schema.Types.ObjectId, ref : 'Category'}
 })
 
+ProductSchema.virtual('CreatedDate').get(function(){
+    return `Product created on ${this.created}`;
+})
+
 module.exports = mongoose.model('Product', ProductSchema);
 
