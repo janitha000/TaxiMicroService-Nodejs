@@ -25,6 +25,9 @@ router.get('/product/category/categories/:category', productController.get_produ
 router.get('/product/category/categories', productController.get_categories);
 router.post('/product', productController.add_product);
 router.put('/product/:id', productController.update_product);
+router.post('/product/category/categories', productController.add_category);
+router.put('/product/category/categories/:id', productController.update_category);
+
 
 module.exports = router;
 

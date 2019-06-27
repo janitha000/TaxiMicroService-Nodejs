@@ -66,3 +66,23 @@ exports.get_categories = function(req, res){
         res.send(error);
     }
 }
+
+exports.add_category = function(req, res){
+    productHelper.add_category(req).then((result) =>  {
+        res.send(result)
+    },  (error) => {
+        logger.error(`Error when adding category ${error}`);
+        res.send(error);
+    })
+}
+
+exports.update_category = function(req, res){
+    let id = req.params.id;
+    productHelper.update_category(id, req, (err, result) => {
+        if (err) {
+            logger.error("Error when updating products " + err);
+            res.send(err);
+        }
+        res.send(result);
+    })
+}
