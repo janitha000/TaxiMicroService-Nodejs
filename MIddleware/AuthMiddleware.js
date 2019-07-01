@@ -1,6 +1,7 @@
 const request = require('request');
 const jwkToPem = require('jwk-to-pem');
 const jwt = require('jsonwebtoken');
+const logger = require('winston')
 
 const poolData = {
     UserPoolId: "us-east-1_gf5MTchOu",
@@ -32,6 +33,7 @@ exports.Validate = function (req, res, next) {
             var decodedJwt = jwt.decode(token, { complete: true });
             if (!decodedJwt) {
                 console.log("Not a valid JWT token");
+                logger.info("Not a valid JWT token")
                 res.status(401);
                 return res.send("Invalid token");
             }

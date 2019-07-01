@@ -1,16 +1,15 @@
 var express = require('express');
 var router = express.Router();
 
-var driverController = require('../Controllers/DriverController');
+
+var driverTestController = require('../Controllers/DriverController');
 var authController = require('../Controllers/AuthController');
 var testController = require('../Controllers/TestController');
 var productController = require('../Controllers/ProductController');
 
-var authMiddleware = require('../MIddleware/AuthMiddleware');
 
-router.get('/driver', driverController.driver_list);
-router.get('/driver/:driverId', driverController.single_driver);
-router.post('/driver', authMiddleware.Validate, driverController.add_driver);
+
+var authMiddleware = require('../MIddleware/AuthMiddleware');
 
 router.post('/auth/register', authController.register);
 router.post('/auth/login', authController.login);
@@ -27,6 +26,10 @@ router.post('/product', productController.add_product);
 router.put('/product/:id', productController.update_product);
 router.post('/product/category/categories', productController.add_category);
 router.put('/product/category/categories/:id', productController.update_category);
+
+router.get('/drivertest', driverTestController.driver_list);
+router.get('/drivertest/:driverId', driverTestController.single_driver);
+router.post('/drivertest', authMiddleware.Validate, driverTestController.add_driver);
 
 
 module.exports = router;

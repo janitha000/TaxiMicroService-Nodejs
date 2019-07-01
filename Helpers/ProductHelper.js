@@ -1,10 +1,8 @@
 "use strict";
 
-
 const Product = require('../Data/Mongodb/Entities/product.model');
 const Category = require('../Data/Mongodb/Entities/category.model');
 const logger = require('../Util/winston');
-const mongoose = require('mongoose');
 
 exports.get_products_with_filter = function (req, callback) {
     var category = req.query.category || false;
@@ -90,7 +88,7 @@ exports.update_product = function (req, callback) {
 }
 
 exports.get_categories = function () {
-    var promise = new Promise(function (resolve, reject) {
+    return new Promise(function (resolve, reject) {
         Category.find((err, result) => {
             if (err) {
                 logger.error("Error when getting categories");
@@ -99,9 +97,6 @@ exports.get_categories = function () {
             resolve(result);
         })
     })
-
-    return promise;
-
 }
 
 exports.add_category = function (req) {
@@ -109,7 +104,7 @@ exports.add_category = function (req) {
         name: req.body.name
     });
 
-    var promise = new Promise((resolve, reject) => {
+    return new Promise((resolve, reject) => {
         category.save((error) => {
             if (error) {
                 logger.error(`Error when saving category ${error}`);
@@ -118,8 +113,6 @@ exports.add_category = function (req) {
             resolve('Category created');
         })
     })
-
-    return promise;
 }
 
 exports.update_category = function(id,req, callback){

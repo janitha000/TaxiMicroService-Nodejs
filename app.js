@@ -22,9 +22,12 @@ mongodb.StartDbwithMongoose();
 
 
 var routes = require('./Routes/routes');
+const taxiRoutes = require('./Routes/TaxiRoutes');
+
 
 app.use(logger);
 
 app.use('/', routes);
+app.use('/taxi/', taxiRoutes);
 
 module.exports = app;
