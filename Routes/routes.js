@@ -6,6 +6,7 @@ var driverTestController = require('../Controllers/DriverController');
 var authController = require('../Controllers/AuthController');
 var testController = require('../Controllers/TestController');
 var productController = require('../Controllers/ProductController');
+var monitorController = require('../Controllers/MonotorController');
 
 
 
@@ -17,6 +18,7 @@ router.post('/auth/validate', authController.validate_token);
 
 router.get('/test/cache/:key', testController.GetCache);
 router.post('/test/cache/:key', testController.setCache);
+router.get('/test/ticks', testController.get_ticks);
 
 router.get('/product/:name', productController.get_single_product);
 router.get('/product', productController.get_products);
@@ -30,6 +32,8 @@ router.put('/product/category/categories/:id', productController.update_category
 router.get('/drivertest', driverTestController.driver_list);
 router.get('/drivertest/:driverId', driverTestController.single_driver);
 router.post('/drivertest', authMiddleware.Validate, driverTestController.add_driver);
+
+router.get('/health/cpu', monitorController.get_cpu_info);
 
 
 module.exports = router;

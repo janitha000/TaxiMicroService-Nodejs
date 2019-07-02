@@ -1,4 +1,5 @@
 var redis = require('../Data/Cache/redis')
+const httpHandler = require('../Handlers/HttpHandler');
 
 exports.GetCache = function(req, res){
     var key = req.params.key
@@ -19,4 +20,9 @@ exports.setCache = function(req, res){
 
         res.send(result);
     })
+}
+
+exports.get_ticks = async (req, res) => {
+    const data = await httpHandler.GET('https://printcloud.rambase.net/api/ticks');
+    res.json(data);
 }

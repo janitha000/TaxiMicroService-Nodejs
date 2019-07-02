@@ -6,7 +6,7 @@ let DriverSchema = new mongoose.Schema({
         firstName : {type: String, required: true, max : 100},
         lastName : {type: String, max: 100}
     },
-    age : {type: Number, max: 2},
+    age : {type: Number, max: 100},
     nic: {type: String, min:10, max:11 },
     vehicles : [{ type: mongoose.Schema.Types.ObjectId, ref: 'Vehicle'}]
 })

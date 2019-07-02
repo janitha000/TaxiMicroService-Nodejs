@@ -18,5 +18,16 @@ exports.add_price = (nameAdd, priceAdd) => {
     })
 }
 
+exports.get_prices = (callback) => {
+    Price.find().exec((err,result) => {
+        if(err){
+            logger.error("Error when getting prices");
+            callback(err);
+        }
+
+        callback(null, result);
+    })
+}
+
 
 
