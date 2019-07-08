@@ -20,3 +20,4 @@ router.get('/vehicle', vehicleController.get_vehicles);
 router.post('/vehicle', vehicleController.add_vehicle);
 
 module.exports = router;
+

@@ -41,36 +41,45 @@ exports.Register = function (body, callback) {
 }
 
 exports.Login = function (body, callback) {
-    var userName = body.auth.username;
-    var password = body.auth.password;
+    const userName = body.auth.username;
+    const password = body.auth.password;
 
     var authenticationDetails = new AmazonCognitoIdentity.AuthenticationDetails({
         Username: userName,
         Password: password
     });
 
-    var userData = {
+    const userData = {
         Username: userName,
         Pool: userPool
     }
 
-    var cognitoUser = new AmazonCognitoIdentity.CognitoUser(userData);
+    const cognitoUser = new AmazonCognitoIdentity.CognitoUser(userData);
     cognitoUser.authenticateUser(authenticationDetails, {
-        onSuccess: function (result) {
+        onSuccess: (result) => {
             var accesstoken = result.getAccessToken().getJwtToken();
             logger.info("accesstoken " + accesstoken);
-            // emailQueue.SendMessagetoSQS(userName).then(function (result) {
-            logger.info("Email sent");
-            redisCache.Set(username, accesstoken, function (err, result) {
-                if (err) {
-                    logger.error("Error from cache " + err)
-                    callback(err)
-                }
-                logger.info("Result from cache " + result)
-                logger.info("Added accesstoken to the cache for user ");
-                callback(null, accesstoken);
+            if(accesstoken){
+                callback(null, accesstoken)
+            }
+            else{
+                callback(null, null)
+            }
 
-            })
+
+            // emailQueue.SendMessagetoSQS(userName).then(function (result) {
+            //logger.info("Email sent");
+
+            // redisCache.Set(username, accesstoken, (err, result) => {
+            //     if (err) {
+            //         logger.error("Error from cache " + err)
+            //         callback(err)
+            //     }
+            //     logger.info("Result from cache " + result)
+            //     logger.info("Added accesstoken to the cache for user ");
+                 callback(null, accesstoken);
+
+            // })
             //})
         },
         onFailure: (function (err) {

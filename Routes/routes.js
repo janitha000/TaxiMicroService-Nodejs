@@ -19,6 +19,7 @@ router.post('/auth/validate', authController.validate_token);
 router.get('/test/cache/:key', testController.GetCache);
 router.post('/test/cache/:key', testController.setCache);
 router.get('/test/ticks', testController.get_ticks);
+router.get('/test/price', testController.get_convreted_price);
 
 router.get('/product/:name', productController.get_single_product);
 router.get('/product', productController.get_products);
