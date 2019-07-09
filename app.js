@@ -2,6 +2,8 @@
 
 var express = require('express');
 var bodyParser = require('body-parser');
+const swaggerui = require('swagger-ui-express')
+const swaggerDocument = require('./swagger.json')
 
 var cors = require('cors');
 var logger = require('./MIddleware/LoggerMiddleware');
@@ -16,7 +18,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 mongodb.StartDbwithMongoose();
 
-
+app.use('/api-docs', swaggerui.serve, swaggerui.setup(swaggerDocument));
 
 
 

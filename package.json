@@ -27,10 +27,13 @@
     "node-fetch": "^2.6.0",
     "redis": "^2.8.0",
     "request": "^2.88.0",
+    "swagger-ui-express": "^4.0.7",
     "winston": "^3.2.1",
     "winston-aws-cloudwatch": "^3.0.0"
   },
   "devDependencies": {
-    "nodemon": "^1.19.1"
+    "eslint": "^6.0.1",
+    "nodemon": "^1.19.1",
+    "swagger-jsdoc": "^3.3.0"
   }
 }

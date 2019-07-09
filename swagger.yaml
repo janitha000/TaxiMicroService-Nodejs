@@ -1,0 +1,13 @@
+swagger: 2.0
+paths: 
+    /taxi/driver: 
+      get: 
+        operationId: getDrivers
+        summary: List drivers
+        description: List all the drivers
+        produces: application/json
+        responses:
+          200 :
+
+
+           

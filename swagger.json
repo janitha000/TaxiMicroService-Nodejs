@@ -1,0 +1,102 @@
+{
+  "swagger": "2.0",
+  "paths": {
+    "/taxi/driver": {
+      "get": {
+        "operationId": "getDrivers",
+        "summary": "List drivers",
+        "description": "List all the drivers",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "descroption": "Success"
+          }
+        }
+      },
+      "post": {
+        "operationId": "postDriver",
+        "summary": "Add driver",
+        "description": "Add driver",
+        "consumes": [
+          "application/json-patch+json",
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "driver",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/driver"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "descroption": "Success"
+          }
+        }
+      }
+    },
+    "/taxi/driver/{driverid}": {
+      "get": {
+        "operationId": "getDriver",
+        "summary": "Get drivre details",
+        "description": "Get drivre details",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": {
+          "name": "driverid",
+          "in": "path",
+          "required": true,
+          "type": "integer",
+          "format": "int32"
+        },
+        "responses": {
+          "200": {
+            "descroption": "Success"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "driver": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type" : "object",
+          "properties": {
+            "firstName" : {
+              "type" : "string"
+            },
+            "lastName" : {
+              "type" : "string"
+            }
+          }
+        },
+        "age": {
+          "type": "integer"
+        },
+        "nic": {
+          "type": "string"
+        },
+        "vehicles" :{
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          }
+        }
+      }
+    }
+  }
+}
+
