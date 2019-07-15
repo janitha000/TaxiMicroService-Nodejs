@@ -3,7 +3,7 @@ var authService = require('../Services/AuthService');
 exports.register = function (req, res) {
     let register = authService.Register(req.body, function (err, result) {
         if (err)
-            res.send(err);
+            res.status(500).send(err);
         else
             res.send(result);
     })

@@ -19,3 +19,11 @@ exports.get_vehicles = async (req, res) => {
         res.send(err);
     })
 }
+
+exports.delete_vehicle = (req, res) => {
+    vehicleHelper.delete_vehicle(req.params.vehicleId).then((result) => {
+        res.send(result);
+    }).catch((err) => {
+        res.status(500).send(err);
+    })
+}

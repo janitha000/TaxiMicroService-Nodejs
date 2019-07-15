@@ -24,6 +24,13 @@ exports.get_prices = (req, res) => {
     })
 }
 
+exports.get_calculated_price = (req, res) => {
+    const vehicleType = req.body.type;
+    const distance = req.body.distance;
+
+    
+}
+
 exports.get_detailed_details = (req, res) => {
     priceCalculator.get_detailed_driver().then((result) => {
         res.send(`${result[0]} ${result[1]}`);

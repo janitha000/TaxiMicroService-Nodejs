@@ -1,26 +1,26 @@
-var redis = require('../Data/Cache/redis')
+//var redis = require('../Data/Cache/redis')
 const httpHandler = require('../Handlers/HttpHandler');
 const priceCalculator = require('../Helpers/Taxi/Calculator/PriceCalculator');
 
 exports.GetCache = function (req, res) {
-    var key = req.params.key
-    redis.GetValue(key, function (err, result) {
-        if (err)
-            res.send(err)
-        res.send(result);
-    })
+    // var key = req.params.key
+    // redis.GetValue(key, function (err, result) {
+    //     if (err)
+    //         res.send(err)
+    //     res.send(result);
+    // })
 }
 
 exports.setCache = function (req, res) {
-    var key = req.params.key;
-    var body = req.body;
+    // var key = req.params.key;
+    // var body = req.body;
 
-    redis.Set(key, body, function (err, result) {
-        if (err)
-            res.send(err)
+    // redis.Set(key, body, function (err, result) {
+    //     if (err)
+    //         res.send(err)
 
-        res.send(result);
-    })
+    //     res.send(result);
+    // })
 }
 
 exports.get_ticks = async (req, res) => {

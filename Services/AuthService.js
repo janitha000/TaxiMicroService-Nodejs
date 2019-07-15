@@ -1,6 +1,7 @@
 var emailQueue = require('../SQSQueue/QueueService')
 var logger = require('../Util/winston');
-var redisCache = require('../Data/Cache/redis')
+const mySqlService = require('../Data/MySQL/MqSQLService')
+//var redisCache = require('../Data/Cache/redis')
 
 const AmazonCognitoIdentity = require('amazon-cognito-identity-js');
 const request = require('request');
@@ -24,19 +25,27 @@ const pool_region = "us-east-1";
 const userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
 
 exports.Register = function (body, callback) {
-    var name = body.name;
-    var email = body.email;
-    var password = body.password;
+    const user = {
+        name : body.username,
+        email: body.email,
+        password : body.password
+    }
+
 
     var attributeList = [];
-    attributeList.push(new AmazonCognitoIdentity.CognitoUserAttribute({ Name: "email", Value: email }));
+    attributeList.push(new AmazonCognitoIdentity.CognitoUserAttribute({ Name: "email", Value: user.email }));
 
-    userPool.signUp(name, password, attributeList, null, function (err, result) {
+    userPool.signUp(user.name, user.password, attributeList, null, function (err, result) {
         if (err)
             callback(err);
 
         var cognitoUser = result.user;
-        callback(cognitoUser);
+        mySqlService.add_customer(user).then((result) => {
+            callback(null, result)
+        }).catch(err => {
+            callback(err)
+        })
+        //callback(cognitoUser);
     })
 }
 
