@@ -20,7 +20,7 @@
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
     "jwk-to-pem": "^2.0.1",
-    "mocha": "^6.1.4",
+    "mocha": "^10.2.0",
     "mongodb": "^3.2.7",
     "mongoose": "^5.6.1",
     "mssql": "^5.1.0",
